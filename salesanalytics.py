@@ -41,6 +41,7 @@ df.dropna(inplace=True)
 df['month'] = df['month'].astype('int32')
 df['sales'] = df['quantity_ordered'].astype(float) * df['price_each'].astype(float)
 df['city'] = df['purchase_address'].apply(lambda x: x.split(',')[1].strip())
+df['grouped'] = df.groupby('order_id')['product'].transform(lambda x: ','.join(x))
 
 # #visualize sales by city
 top_sales_city = df.groupby('city')['sales'].sum()
